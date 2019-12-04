@@ -10,3 +10,4 @@ Splash App - Demo app which uses Unsplash API to display searched images.
 6. Caches image information in memory to avoid redundant API calls  
 7. Handles paging when calling Unsplash API
 
+Please insert your Unsplash Access Key in DAO.h before running project. 
