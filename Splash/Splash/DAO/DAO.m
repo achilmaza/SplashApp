@@ -23,8 +23,8 @@
 #import "Image.h"
 #import "ImageCache.h"
 
-static NSString * const accessKey = @"eb2c4d30ab31ccbebb33e632c2114e6aadc966b0f107971afc0956b93d67ac59";
-static NSString * const secretKey = @"dd31b8c66f4bc6ffffe43d0ec88336ff5742a9cd5039661c18e836427cd027ed";
+static NSString * const accessKey = @"";
+static NSString * const secretKey = @"";
 
 @interface DAO () <NSURLSessionDelegate>
 @property (nonatomic, strong) NSMutableArray * recentSearches;
