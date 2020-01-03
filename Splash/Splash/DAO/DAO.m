@@ -23,8 +23,8 @@
 #import "Image.h"
 #import "ImageCache.h"
 
-static NSString * const accessKey = @"";
-static NSString * const secretKey = @"";
+static NSString * const accessKey = @"eb2c4d30ab31ccbebb33e632c2114e6aadc966b0f107971afc0956b93d67ac59";
+static NSString * const secretKey = @"dd31b8c66f4bc6ffffe43d0ec88336ff5742a9cd5039661c18e836427cd027ed";
 
 @interface DAO () <NSURLSessionDelegate>
 @property (nonatomic, strong) NSMutableArray * recentSearches;
@@ -116,7 +116,7 @@ static NSString * const secretKey = @"";
     
         __strong typeof(self) strongself = weakself;
         
-        if(error){
+        if(error || strongself == nil){
             NSLog(@"getImageList: error = %@", error);
             dispatch_async(dispatch_get_main_queue(), ^{
                 [delegate requestError:@"Images failed to load. Please try again"];
@@ -224,11 +224,13 @@ static NSString * const secretKey = @"";
            
             __strong typeof(self) strongself = weakself;
            
-           if(error){
+           if(error || strongself == nil){
               NSLog(@"getThumbnail: error loading thumbnail = %@", error);
            }
            else{
-               [strongself.imageCache saveImageData:query forImage:image data:data imageType:small];
+               if(data != nil){
+                   [strongself.imageCache saveImageData:query forImage:image data:data imageType:small];
+               }
            }
            
            dispatch_async(dispatch_get_main_queue(), ^{
@@ -260,12 +262,12 @@ static NSString * const secretKey = @"";
                                                      completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
             __strong typeof(self) strongself = weakself;
            
-           if(error){
+           if(error || strongself == nil){
                 NSLog(@"getRegular: error loading regular image = %@", error);
            }
            else{
                if(data!=nil){
-                   [strongself.imageCache saveImageData:query forImage:image data:data imageType:regular];
+                    [strongself.imageCache saveImageData:query forImage:image data:data imageType:regular];
                }
            }
            

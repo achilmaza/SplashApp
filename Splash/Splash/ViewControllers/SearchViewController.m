@@ -134,26 +134,27 @@
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
     
     if(searchBar.text != nil){
-       searchBar.text = [searchBar.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-       if(![searchBar.text isEqualToString:@""]){
+       NSString * trimmedStr = [searchBar.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];//
+       if(![trimmedStr isEqualToString:@""]){
             self.showSuggestedSearch = false;
-           [self displaySearchViewController:searchBar.text];
+           [self displaySearchViewController:trimmedStr];
        }
     }
 }
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
     
-    searchBar.text = [searchBar.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+ 
+    NSString * trimmedStr = [searchBar.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         
-    if([searchBar.text isEqualToString:@""]){
+    if([trimmedStr isEqualToString:@""]){
         self.showSuggestedSearch = false;
         [self toggleViewControllers];
     }
     else{
         self.showSuggestedSearch = true;
         [self toggleViewControllers];
-        [self.suggestedSearchViewController searchQuery:searchBar.text];
+        [self.suggestedSearchViewController searchQuery:trimmedStr];
     }
 
 }
