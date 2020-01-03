@@ -218,14 +218,17 @@ static NSString * const secretKey = @"";
        NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:url];
        request.HTTPMethod = @"GET";
     
+        __weak typeof(self) weakself = self;
        NSURLSessionDataTask * task = [self.session dataTaskWithRequest:request
                                                      completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+           
+            __strong typeof(self) strongself = weakself;
            
            if(error){
               NSLog(@"getThumbnail: error loading thumbnail = %@", error);
            }
            else{
-               [self.imageCache saveImageData:query forImage:image data:data imageType:small];
+               [strongself.imageCache saveImageData:query forImage:image data:data imageType:small];
            }
            
            dispatch_async(dispatch_get_main_queue(), ^{
@@ -252,15 +255,17 @@ static NSString * const secretKey = @"";
        NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:url];
        request.HTTPMethod = @"GET";
     
+       __weak typeof(self) weakself = self;
        NSURLSessionDataTask * task = [self.session dataTaskWithRequest:request
                                                      completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+            __strong typeof(self) strongself = weakself;
            
            if(error){
                 NSLog(@"getRegular: error loading regular image = %@", error);
            }
            else{
                if(data!=nil){
-                   [self.imageCache saveImageData:query forImage:image data:data imageType:regular];
+                   [strongself.imageCache saveImageData:query forImage:image data:data imageType:regular];
                }
            }
            
